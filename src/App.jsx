@@ -3,17 +3,17 @@ import TodoList from './Todolist';
 import { useState, useEffect } from "react";
 
 
+
 function App() {
-  const getTheme = () =>{return(JSON.parse(localStorage.getItem("DARK_MODE"))||false)}
+  const getTheme = () =>{
+    // setDarkMode based on window settings
+    const prefersDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    return(JSON.parse(localStorage.getItem("DARK_MODE"))||prefersDarkMode)
+  }
   const [darkMode, setDarkMode] = useState(getTheme());
   console.log(darkMode)
 
-  // setDarkMode based on window settings
 
-  // useEffect(() => {
-  //   const prefersDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
-  //   setDarkMode(prefersDarkMode);
-  // }, []);
 
 
   useEffect(() => {
@@ -24,6 +24,7 @@ function App() {
 
   return (
     <div className="py-16">
+      {/* <Todo /> */}
       <TodoList darkMode={darkMode} setDarkMode={setDarkMode} />
     </div>
   );
